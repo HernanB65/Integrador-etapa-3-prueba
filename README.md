@@ -6,7 +6,7 @@ touch server.js README.md .env .env.example .gitignore && mkdir controllers mode
 & npm init -y && npm i express express-validator mongoose multer cors && npm i nodemon dotenv -D
 ```
 
-## Uso normal del proyecto 
+## Uso del proyecto 
 
 1. Bajar el .zip (GitHub o Drive)
 2. Copiar el .env.example
