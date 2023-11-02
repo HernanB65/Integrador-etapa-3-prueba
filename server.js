@@ -20,8 +20,8 @@ const corsConfig = {
 
 // ! CONEXION MONGODB
 
-//handleConnection(process.env.URI_MLOCAL)
-handleConnection(process.env.URI_MREMOTA)
+handleConnection(process.env.URI_MLOCAL)
+//handleConnection(process.env.URI_MREMOTA)
 
 
 // ! Middlewares
@@ -33,7 +33,7 @@ app.use(cors(corsConfig))
 // ! Rutas
 app.use('/api/productos', routerProductos)
 app.use('/api/upload', routerUpload)
-app.use('/api/carrito', routerCarrito)
+app.use('/api/carritos', routerCarrito)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

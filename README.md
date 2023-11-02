@@ -26,5 +26,11 @@ mongodump --db bc_ecommerce
 Hacemos el restore del dump local en la DB remota
 
 ```sh
-mongorestore --uri "mongodb+srv://bootcamp.agir0cm.mongodb.net/" --username hbianchimano --nsInclude bc_ecommerce.* dump/
+mongorestore --uri "mongodb+srv://bootcamp.agir0cm.mongodb.net/" --username hbianchimano --nsInclude bc_ecommerce.* dump
 ```
+
+## Entrega
+
+* Dirección Back: https://integrador-etapa-3-prueba.onrender.com/api/productos
+* Dirección de Mongo: (no es necesaria)
+* Dirección Front: 

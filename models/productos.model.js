@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import handleMongoId from '../utils/handleMongoId.js'
 
 // CREAMOS EL ESQUEMA
 
@@ -27,7 +28,7 @@ const productosModel = mongoose.model('productos', productosSchema)
  const leerProducto = async (id) => {
     try {
         const producto = await productosModel.findById(id)
-        return producto
+        return handleMongoId(producto)
     } catch (error) {
         console.log('[leerProducto]: No se pudo leer el producto con el id', error)
     }
@@ -38,8 +39,8 @@ const productosModel = mongoose.model('productos', productosSchema)
 /* ------------------------------------------------- */
 const leerProductos = async () => {
     try {
-        const productos = await productosModel.find({})
-        return productos
+        const productos = await productosModel.find({}) // .lean() // transformo un obj de mongoose en un obj de js
+        return handleMongoId(productos)
     } catch (error) {
         console.log('[leerProductos]: Algo no salió bien...', error)
     }
@@ -54,7 +55,7 @@ const guardarProducto = async (productoNuevo) => {
     try {
         const productoAlmacenado = new productosModel(productoNuevo)
     await productoAlmacenado.save()
-    return productoAlmacenado
+    return handleMongoId(productoAlmacenado)
     } catch (error) {
         console.log('ERROR (Guardar productos), no se pudo guardar en la DB', error);
         
@@ -67,8 +68,10 @@ const guardarProducto = async (productoNuevo) => {
 
 const modificarProducto = async (id, productoAEditar) => {
     try {
-        const productoModificado = await productosModel.findByIdAndUpdate(id, productoAEditar)
-        return productoModificado
+        // findByIdAndUpdate es el producto con los datos que tenía
+        // new:true => findByIdAndUpdate retorna el producto actualizado
+        const productoModificado = await productosModel.findByIdAndUpdate(id, productoAEditar, { new: true })
+        return handleMongoId(productoModificado)
     } catch (error) {
         console.log('ERROR[modificarProducto]: No se pudo actualizar el producto', error)
     }
@@ -83,7 +86,7 @@ const eliminarProducto = async (id) => {
 
         try {
             const productoBorrado = await productosModel.findByIdAndDelete(id)
-            return productoBorrado
+            return handleMongoId(productoBorrado)
         } catch (error) {
             console.log('ERROR al eliminar la película en la DB', error);
         }
